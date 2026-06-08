@@ -1,0 +1,13 @@
+---
+interface Props {
+  section: string;
+  limit?: number;
+  layout?: 'list' | 'cards';
+  empty?: string;
+}
+const { section, limit = 30, layout = 'list', empty = 'Материалы пока не добавлены.' } = Astro.props;
+---
+<div class={`post-list ${layout === 'cards' ? 'cards' : ''}`} data-post-list data-section={section} data-limit={limit} data-empty={empty}>
+  <div class="empty-state">Загрузка...</div>
+</div>
+<script type="module" src={`${import.meta.env.BASE_URL}js/publicSite.js`}></script>
