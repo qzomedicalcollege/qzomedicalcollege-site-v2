@@ -10,17 +10,29 @@ create table if not exists public.admin_users (
 
 create table if not exists public.site_posts (
   id uuid primary key default gen_random_uuid(),
-  section text not null check (section in ('news', 'about', 'admission', 'students', 'specialties', 'documents', 'schedule')),
+  section text not null check (section in ('news', 'announcements', 'about', 'admission', 'students', 'specialties', 'documents', 'schedule', 'gallery', 'teachers', 'management', 'faq')),
   title text not null,
   content text,
   category text,
   status text not null default 'published' check (status in ('draft', 'published')),
   image_url text,
   files jsonb not null default '[]'::jsonb,
+  metadata jsonb not null default '{}'::jsonb,
   sort_order integer not null default 0,
   published_at timestamptz not null default now(),
   created_at timestamptz not null default now(),
   updated_at timestamptz not null default now()
+);
+
+
+create table if not exists public.admin_activity_logs (
+  id uuid primary key default gen_random_uuid(),
+  user_id uuid references auth.users(id) on delete set null,
+  action text not null,
+  entity text not null default 'site_posts',
+  entity_id uuid,
+  details jsonb not null default '{}'::jsonb,
+  created_at timestamptz not null default now()
 );
 
 create index if not exists site_posts_section_status_idx on public.site_posts(section, status, published_at desc);
@@ -62,9 +74,11 @@ grant usage on schema public to anon, authenticated;
 grant select on public.site_posts to anon, authenticated;
 grant insert, update, delete on public.site_posts to authenticated;
 grant select on public.admin_users to authenticated;
+grant select, insert on public.admin_activity_logs to authenticated;
 
 alter table public.site_posts enable row level security;
 alter table public.admin_users enable row level security;
+alter table public.admin_activity_logs enable row level security;
 
 -- Политики site_posts.
 drop policy if exists "Public can read published posts" on public.site_posts;
@@ -104,3 +118,20 @@ on public.admin_users
 for select
 to authenticated
 using (user_id = auth.uid());
+
+
+-- Политики журнала действий.
+drop policy if exists "Admins can read activity logs" on public.admin_activity_logs;
+drop policy if exists "Admins can insert activity logs" on public.admin_activity_logs;
+
+create policy "Admins can read activity logs"
+on public.admin_activity_logs
+for select
+to authenticated
+using (public.is_admin());
+
+create policy "Admins can insert activity logs"
+on public.admin_activity_logs
+for insert
+to authenticated
+with check (public.is_admin() and user_id = auth.uid());
