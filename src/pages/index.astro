@@ -1,0 +1,62 @@
+---
+import BaseLayout from '../layouts/BaseLayout.astro';
+import PostSection from '../components/PostSection.astro';
+const base = import.meta.env.BASE_URL;
+---
+<BaseLayout title="Қызылорда жоғары медициналық колледжі" active="home">
+  <section class="hero">
+    <div class="container hero-grid">
+      <div>
+        <span class="eyebrow">1928 жылдан бері медициналық білім</span>
+        <h1>Қызылорда жоғары медициналық колледжі</h1>
+        <p>Сапалы медициналық білім, тәжірибелік дайындық, заманауи оқу ортасы және денсаулық сақтау саласына қажетті мамандар даярлау.</p>
+        <div class="hero-actions">
+          <a class="btn btn-primary" href={`${base}admission.html`}>Абитуриентам</a>
+          <a class="btn btn-secondary" href={`${base}documents.html`}>Документы</a>
+        </div>
+      </div>
+      <div class="hero-card">
+        <img class="mini-logo" src={`${base}assets/logo.png`} alt="Логотип" />
+        <h3>Ресми ақпараттық портал</h3>
+        <p>Жаңалықтар, құжаттар, расписание, студенттер мен талапкерлерге арналған материалдар бір жерде.</p>
+      </div>
+    </div>
+  </section>
+
+  <div class="container stats" aria-label="Статистика колледжа">
+    <div class="stat"><strong>1928</strong><span>год основания</span></div>
+    <div class="stat"><strong>2071</strong><span>студент</span></div>
+    <div class="stat"><strong>8</strong><span>специальностей</span></div>
+    <div class="stat"><strong>33</strong><span>клинические базы</span></div>
+    <div class="stat"><strong>IQAA</strong><span>аккредитация 2021–2026</span></div>
+  </div>
+
+  <section class="section white">
+    <div class="container">
+      <div class="section-header">
+        <div>
+          <h2 class="section-title">Негізгі бөлімдер</h2>
+          <p class="section-subtitle">Сайт құрылымы колледждің ресми ақпаратын тез табуға арналған.</p>
+        </div>
+      </div>
+      <div class="grid grid-3">
+        <a class="card" href={`${base}admission.html`}><div class="icon">01</div><h3>Абитуриентам</h3><p>Поступление, документы, сроки и контакты приёмной комиссии.</p></a>
+        <a class="card" href={`${base}students.html`}><div class="icon">02</div><h3>Студентам</h3><p>Учебные материалы, практика, объявления и полезная информация.</p></a>
+        <a class="card" href={`${base}documents.html`}><div class="icon">03</div><h3>Документы</h3><p>Лицензии, аккредитация, правила, приказы, PDF и Word-файлы.</p></a>
+      </div>
+    </div>
+  </section>
+
+  <section class="section">
+    <div class="container">
+      <div class="section-header">
+        <div>
+          <h2 class="section-title">Соңғы жаңалықтар</h2>
+          <p class="section-subtitle">Колледждің жаңалықтары мен хабарландырулары.</p>
+        </div>
+        <a class="btn btn-secondary" href={`${base}news.html`}>Все новости</a>
+      </div>
+      <PostSection section="news" limit={3} layout="cards" empty="Новостей пока нет." />
+    </div>
+  </section>
+</BaseLayout>

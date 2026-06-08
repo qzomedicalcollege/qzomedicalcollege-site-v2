@@ -1,0 +1,104 @@
+---
+import BaseLayout from '../layouts/BaseLayout.astro';
+const base = import.meta.env.BASE_URL;
+---
+<BaseLayout title="Админ-панель — Қызылорда жоғары медициналық колледжі" admin={true}>
+  <div class="admin-shell">
+    <div class="admin-panel" style="margin-bottom: 18px; display: flex; justify-content: space-between; gap: 16px; align-items: center; flex-wrap: wrap;">
+      <a class="logo" href={`${base}index.html`}><img src={`${base}assets/logo.png`} alt="Логотип" /><span>Админ-панель V2</span></a>
+      <div class="admin-actions">
+        <a class="btn btn-muted" href={`${base}index.html`}>На сайт</a>
+        <button class="btn btn-danger" id="logoutBtn" type="button" hidden>Выйти</button>
+      </div>
+    </div>
+
+    <section class="admin-panel login-card" id="loginPanel">
+      <h1>Вход в админку</h1>
+      <p style="color: var(--muted);">Войдите через Supabase Auth. Пользователь должен быть добавлен в таблицу <code>admin_users</code>.</p>
+      <form id="loginForm">
+        <div class="form-group"><label>Email</label><input class="input" type="email" id="loginEmail" autocomplete="email" required /></div>
+        <div class="form-group"><label>Пароль</label><input class="input" type="password" id="loginPassword" autocomplete="current-password" required /></div>
+        <button class="btn btn-primary" type="submit">Войти</button>
+      </form>
+      <div class="notice" id="loginNotice"></div>
+    </section>
+
+    <section class="admin-panel" id="dashboardPanel" hidden>
+      <div class="section-header">
+        <div>
+          <h1 class="section-title">Управление сайтом</h1>
+          <p class="section-subtitle">Новости, страницы, документы и расписание. Можно добавлять, редактировать, удалять записи и файлы.</p>
+        </div>
+      </div>
+
+      <div class="admin-grid">
+        <div class="card">
+          <h2 id="formTitle">Новая запись</h2>
+          <form id="postForm">
+            <input type="hidden" id="postId" />
+            <div class="form-row">
+              <div class="form-group">
+                <label>Раздел</label>
+                <select class="select" id="sectionInput" required>
+                  <option value="news">Новости</option>
+                  <option value="about">О колледже</option>
+                  <option value="admission">Абитуриентам</option>
+                  <option value="students">Студентам</option>
+                  <option value="specialties">Специальности</option>
+                  <option value="documents">Документы</option>
+                  <option value="schedule">Расписание</option>
+                </select>
+              </div>
+              <div class="form-group">
+                <label>Статус</label>
+                <select class="select" id="statusInput">
+                  <option value="published">Опубликовано</option>
+                  <option value="draft">Черновик</option>
+                </select>
+              </div>
+            </div>
+            <div class="form-group"><label>Заголовок</label><input class="input" id="titleInput" required placeholder="Например: Расписание экзаменов" /></div>
+            <div class="form-group"><label>Категория</label><input class="input" id="categoryInput" placeholder="Например: Приказы, Практика, Лицензии" /></div>
+            <div class="form-group"><label>Текст</label><textarea class="textarea" id="contentInput" placeholder="Основной текст записи..."></textarea></div>
+            <div class="form-row">
+              <div class="form-group"><label>Порядок</label><input class="input" type="number" id="sortInput" value="0" /></div>
+              <div class="form-group"><label>Дата публикации</label><input class="input" type="datetime-local" id="publishedAtInput" /></div>
+            </div>
+            <div class="form-group">
+              <label>Файлы</label>
+              <input class="input" type="file" id="filesInput" multiple accept=".pdf,.doc,.docx,.xls,.xlsx,.ppt,.pptx,.txt,.jpg,.jpeg,.png,.webp,.gif" />
+              <small style="color: var(--muted);">До 25 МБ на файл. Первое изображение станет превью.</small>
+            </div>
+            <div id="existingFiles" class="file-list"></div>
+            <div class="admin-actions">
+              <button class="btn btn-primary" type="submit" id="saveBtn">Опубликовать</button>
+              <button class="btn btn-muted" type="button" id="resetBtn">Сбросить</button>
+            </div>
+          </form>
+          <div class="notice" id="formNotice"></div>
+        </div>
+
+        <div class="card">
+          <div class="form-row">
+            <div class="form-group">
+              <label>Фильтр раздела</label>
+              <select class="select" id="filterSection">
+                <option value="">Все разделы</option>
+                <option value="news">Новости</option>
+                <option value="about">О колледже</option>
+                <option value="admission">Абитуриентам</option>
+                <option value="students">Студентам</option>
+                <option value="specialties">Специальности</option>
+                <option value="documents">Документы</option>
+                <option value="schedule">Расписание</option>
+              </select>
+            </div>
+            <div class="form-group"><label>Поиск</label><input class="input" id="searchInput" placeholder="По заголовку..." /></div>
+          </div>
+          <div id="postsList"><div class="empty-state">Загрузка...</div></div>
+        </div>
+      </div>
+    </section>
+  </div>
+  <script type="module" src={`${base}js/admin.js`}></script>
+</BaseLayout>

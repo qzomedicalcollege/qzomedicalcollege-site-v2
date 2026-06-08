@@ -1,0 +1,16 @@
+---
+import BaseLayout from '../layouts/BaseLayout.astro';
+import PageHero from '../components/PageHero.astro';
+import PostSection from '../components/PostSection.astro';
+---
+<BaseLayout title="Специальности — Қызылорда жоғары медициналық колледжі" active="specialties">
+  <PageHero title="Специальности" subtitle="Образовательные программы и направления подготовки колледжа." />
+  <section class="section">
+    <div class="container grid grid-3">
+      <div class="card"><div class="icon">+</div><h3>Сестринское дело</h3><p>Подготовка медицинских сестёр по современным образовательным стандартам.</p></div>
+      <div class="card"><div class="icon">⚕</div><h3>Лечебное дело</h3><p>Базовая подготовка специалистов среднего медицинского звена.</p></div>
+      <div class="card"><div class="icon">☤</div><h3>Дополнительные программы</h3><p>Список программ можно обновлять через админку.</p></div>
+    </div>
+  </section>
+  <section class="section white"><div class="container"><div class="section-header"><div><h2 class="section-title">Описание специальностей</h2></div></div><PostSection section="specialties" /></div></section>
+</BaseLayout>

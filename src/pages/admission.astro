@@ -1,0 +1,16 @@
+---
+import BaseLayout from '../layouts/BaseLayout.astro';
+import PageHero from '../components/PageHero.astro';
+import PostSection from '../components/PostSection.astro';
+---
+<BaseLayout title="Абитуриентам — Қызылорда жоғары медициналық колледжі" active="admission">
+  <PageHero title="Абитуриентам" subtitle="Информация для поступающих: сроки приёма, список документов, специальности и контакты приёмной комиссии." />
+  <section class="section">
+    <div class="container grid grid-3">
+      <div class="card"><div class="icon">1</div><h3>Выберите специальность</h3><p>Изучите образовательные программы и требования к поступлению.</p></div>
+      <div class="card"><div class="icon">2</div><h3>Подготовьте документы</h3><p>Следите за официальными объявлениями и списками документов.</p></div>
+      <div class="card"><div class="icon">3</div><h3>Свяжитесь с комиссией</h3><p>Телефон приёмной комиссии: +7 7242 23-05-13.</p></div>
+    </div>
+  </section>
+  <section class="section white"><div class="container"><div class="section-header"><div><h2 class="section-title">Объявления для абитуриентов</h2></div></div><PostSection section="admission" /></div></section>
+</BaseLayout>
