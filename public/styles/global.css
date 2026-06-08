@@ -170,3 +170,98 @@ img { max-width: 100%; display: block; }
   .admin-shell { margin: 16px auto; padding: 0 12px; }
   .admin-panel { padding: 16px; }
 }
+/* Visual polish fix */
+
+body {
+  background:
+    radial-gradient(circle at top left, rgba(32, 134, 79, 0.10), transparent 32%),
+    #f6f9fb;
+}
+
+.site-header {
+  background: rgba(255, 255, 255, 0.96);
+}
+
+.logo img,
+.hero-card .mini-logo {
+  background: #ffffff;
+  border-radius: 999px;
+  padding: 4px;
+  box-shadow: 0 8px 22px rgba(21, 32, 51, 0.10);
+}
+
+.logo img {
+  width: 64px;
+  height: 64px;
+}
+
+.hero-card .mini-logo {
+  width: 132px;
+}
+
+.hero-card {
+  background:
+    linear-gradient(180deg, rgba(255,255,255,0.96), rgba(255,255,255,0.90));
+}
+
+@media (min-width: 981px) {
+  .menu-btn {
+    display: none !important;
+  }
+
+  .nav-links {
+    display: flex !important;
+    position: static;
+    background: transparent;
+    border: 0;
+    box-shadow: none;
+    padding: 0;
+    flex-direction: row;
+  }
+}
+
+@media (max-width: 760px) {
+  .topbar {
+    display: none;
+  }
+
+  .navbar {
+    min-height: 76px;
+  }
+
+  .logo span {
+    font-size: 14px;
+    max-width: 220px;
+  }
+
+  .logo img {
+    width: 52px;
+    height: 52px;
+  }
+
+  .hero {
+    padding: 42px 0 34px;
+  }
+
+  .hero-grid {
+    gap: 24px;
+  }
+
+  .hero h1 {
+    font-size: 36px;
+    letter-spacing: -0.035em;
+  }
+
+  .hero p {
+    font-size: 16px;
+  }
+
+  .hero-card {
+    padding: 22px;
+    border-radius: 22px;
+  }
+
+  .hero-card .mini-logo {
+    width: 110px;
+  }
+}
