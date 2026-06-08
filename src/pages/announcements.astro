@@ -1,0 +1,21 @@
+---
+import BaseLayout from '../layouts/BaseLayout.astro';
+import PageHero from '../components/PageHero.astro';
+import PostSection from '../components/PostSection.astro';
+---
+<BaseLayout title="Объявления — Қызылорда жоғары медициналық колледжі" active="announcements" description="Важные объявления колледжа: расписание, практика, экзамены, собрания и приём документов.">
+  <PageHero title="Объявления" subtitle="Краткие важные уведомления для студентов, абитуриентов и сотрудников колледжа." />
+  <section class="section white">
+    <div class="container">
+      <div class="filter-row">
+        <button class="filter-chip active" data-filter-category="">Все</button>
+        <button class="filter-chip" data-filter-category="Важно">Важно</button>
+        <button class="filter-chip" data-filter-category="Приём документов">Приём документов</button>
+        <button class="filter-chip" data-filter-category="Расписание">Расписание</button>
+        <button class="filter-chip" data-filter-category="Практика">Практика</button>
+        <button class="filter-chip" data-filter-category="Экзамены">Экзамены</button>
+      </div>
+      <PostSection section="announcements" empty="Объявления пока не добавлены." />
+    </div>
+  </section>
+</BaseLayout>

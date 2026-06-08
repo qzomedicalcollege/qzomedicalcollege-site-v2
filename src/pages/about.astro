@@ -4,16 +4,17 @@ import PageHero from '../components/PageHero.astro';
 import PostSection from '../components/PostSection.astro';
 ---
 <BaseLayout title="О колледже — Қызылорда жоғары медициналық колледжі" active="about">
-  <PageHero title="О колледже" subtitle="История, миссия, аккредитация, руководство и официальная информация о колледже." />
+  <PageHero title="О колледже" subtitle="История, миссия, аккредитация и официальная информация о колледже." titleKey="page.about.title" subtitleKey="page.about.subtitle" />
   <section class="section">
-    <div class="container grid grid-2">
+    <div class="container grid grid-3">
       <div class="card"><div class="icon">✓</div><h3>Миссия</h3><p>Подготовка компетентных медицинских специалистов для системы здравоохранения региона.</p></div>
-      <div class="card"><div class="icon">★</div><h3>Аккредитация</h3><p>IQAA 2021–2026. Подтверждение качества образовательной деятельности.</p></div>
+      <div class="card"><div class="icon">1928</div><h3>Опыт и традиции</h3><p>Колледж развивает медицинское образование в регионе почти век.</p></div>
+      <div class="card"><div class="icon">★</div><h3>Аккредитация</h3><p>IQAA 2021–2026 — подтверждение качества образовательной деятельности.</p></div>
     </div>
   </section>
   <section class="section white">
     <div class="container">
-      <div class="section-header"><div><h2 class="section-title">Материалы раздела</h2><p class="section-subtitle">Данные добавляются и обновляются через админ-панель.</p></div></div>
+      <div class="section-header"><div><div class="kicker">Материалы</div><h2 class="section-title">Информация о колледже</h2><p class="section-subtitle">Этот раздел можно обновлять через админ-панель: история, руководство, аккредитация, официальные сведения.</p></div></div>
       <PostSection section="about" />
     </div>
   </section>

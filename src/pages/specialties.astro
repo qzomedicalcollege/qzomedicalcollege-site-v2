@@ -2,15 +2,32 @@
 import BaseLayout from '../layouts/BaseLayout.astro';
 import PageHero from '../components/PageHero.astro';
 import PostSection from '../components/PostSection.astro';
+const specialties = [
+  ['nursing', '🩺', 'Сестринское дело', 'Подготовка медицинских сестёр для клинической практики, ухода за пациентами и профилактической работы.', 'Квалификация: медицинская сестра / брат', '2 г. 10 мес. / 3 г. 10 мес.'],
+  ['medical', '⚕️', 'Лечебное дело', 'Подготовка фельдшеров для оказания первичной медико-санитарной помощи.', 'Квалификация: фельдшер', '3 г. 10 мес.'],
+  ['midwifery', '🤱', 'Акушерское дело', 'Сопровождение беременности, родов, послеродового периода и охраны здоровья матери и ребёнка.', 'Квалификация: акушер(ка)', '2 г. 10 мес.'],
+  ['pharmacy', '💊', 'Фармация', 'Лекарственное обеспечение, основы фармакологии и работа аптечных организаций.', 'Квалификация: фармацевт', '2 г. 10 мес.'],
+  ['lab', '🔬', 'Лабораторная диагностика', 'Лабораторные исследования, анализы и работа с современным медицинским оборудованием.', 'Квалификация: лаборант', '2 г. 10 мес.'],
+  ['dentistry', '🦷', 'Стоматология', 'Базовая подготовка и ассистирование в стоматологическом направлении.', 'Квалификация зависит от программы', 'по программе']
+];
 ---
-<BaseLayout title="Специальности — Қызылорда жоғары медициналық колледжі" active="specialties">
-  <PageHero title="Специальности" subtitle="Образовательные программы и направления подготовки колледжа." />
+<BaseLayout title="Специальности — Қызылорда жоғары медициналық колледжі" active="specialties" description="Специальности и образовательные программы Кызылординского высшего медицинского колледжа.">
+  <PageHero title="Специальности" subtitle="Образовательные программы, квалификации, сроки обучения и направления подготовки колледжа." titleKey="page.specialties.title" subtitleKey="page.specialties.subtitle" />
   <section class="section">
-    <div class="container grid grid-3">
-      <div class="card"><div class="icon">+</div><h3>Сестринское дело</h3><p>Подготовка медицинских сестёр по современным образовательным стандартам.</p></div>
-      <div class="card"><div class="icon">⚕</div><h3>Лечебное дело</h3><p>Базовая подготовка специалистов среднего медицинского звена.</p></div>
-      <div class="card"><div class="icon">☤</div><h3>Дополнительные программы</h3><p>Список программ можно обновлять через админку.</p></div>
+    <div class="container">
+      <div class="section-header"><div><div class="kicker">Направления</div><h2 class="section-title">Основные специальности</h2><p class="section-subtitle">Карточки ниже — базовая витрина. Дополнительные программы, документы и подробности можно вести через админку.</p></div></div>
+      <div class="specialty-grid pro-specialties">
+        {specialties.map(([slug, icon, title, text, meta, duration]) => (
+          <article class="specialty-card">
+            <div class="icon">{icon}</div>
+            <h3>{title}</h3>
+            <p>{text}</p>
+            <div class="specialty-meta"><span>{duration}</span><span>{meta}</span></div>
+            <a class="read-more" href={`specialty.html?slug=${slug}`}>Подробнее →</a>
+          </article>
+        ))}
+      </div>
     </div>
   </section>
-  <section class="section white"><div class="container"><div class="section-header"><div><h2 class="section-title">Описание специальностей</h2></div></div><PostSection section="specialties" /></div></section>
+  <section class="section white"><div class="container"><div class="section-header"><div><div class="kicker">Программы</div><h2 class="section-title">Подробные материалы по специальностям</h2><p class="section-subtitle">Для записей раздела “Специальности” в админке доступны отдельные поля: код, срок, форма, квалификация и база поступления.</p></div></div><PostSection section="specialties" layout="cards" variant="specialty" /></div></section>
 </BaseLayout>

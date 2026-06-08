@@ -1,0 +1,14 @@
+---
+import BaseLayout from '../layouts/BaseLayout.astro';
+import PageHero from '../components/PageHero.astro';
+const base = import.meta.env.BASE_URL.endsWith('/') ? import.meta.env.BASE_URL : `${import.meta.env.BASE_URL}/`;
+---
+<BaseLayout title="FAQ — Қызылорда жоғары медициналық колледжі" active="faq" description="Частые вопросы о поступлении, обучении, документах, расписании и практике.">
+  <PageHero title="FAQ" subtitle="Ответы на частые вопросы абитуриентов, студентов и родителей." />
+  <section class="section white">
+    <div class="container">
+      <div class="faq-list" data-faq-list><div class="empty-state">Загрузка вопросов...</div></div>
+    </div>
+  </section>
+  <script type="module" src={`${base}js/faq.js`}></script>
+</BaseLayout>
