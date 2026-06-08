@@ -1,6 +1,8 @@
 ---
 import BaseLayout from '../layouts/BaseLayout.astro';
-const base = import.meta.env.BASE_URL;
+const base = import.meta.env.BASE_URL.endsWith('/')
+  ? import.meta.env.BASE_URL
+  : `${import.meta.env.BASE_URL}/`;;
 ---
 <BaseLayout title="Админ-панель — Қызылорда жоғары медициналық колледжі" admin={true}>
   <div class="admin-shell">
