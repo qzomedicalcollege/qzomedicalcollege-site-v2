@@ -1,7 +1,9 @@
 ---
 import BaseLayout from '../layouts/BaseLayout.astro';
 import PostSection from '../components/PostSection.astro';
-const base = import.meta.env.BASE_URL;
+const base = import.meta.env.BASE_URL.endsWith('/')
+  ? import.meta.env.BASE_URL
+  : `${import.meta.env.BASE_URL}/`;;
 ---
 <BaseLayout title="Қызылорда жоғары медициналық колледжі" active="home">
   <section class="hero">
