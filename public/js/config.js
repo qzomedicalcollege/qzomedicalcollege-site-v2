@@ -4,12 +4,17 @@ export const SUPABASE_BUCKET = 'qzomedicalcollege-site-v2';
 
 export const SECTIONS = {
   news: 'Новости',
+  announcements: 'Объявления',
   about: 'О колледже',
   admission: 'Абитуриентам',
   students: 'Студентам',
   specialties: 'Специальности',
   documents: 'Документы',
-  schedule: 'Расписание'
+  schedule: 'Расписание',
+  gallery: 'Галерея',
+  teachers: 'Преподаватели',
+  management: 'Руководство',
+  faq: 'FAQ'
 };
 
 export const ALLOWED_FILE_TYPES = [
