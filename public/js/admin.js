@@ -238,7 +238,52 @@ function toLocalInputValue(dateLike) {
   return new Date(date.getTime() - offset).toISOString().slice(0, 16);
 }
 
+function transliterateToAscii(value = '') {
+  const map = {
+    а: 'a', ә: 'a', б: 'b', в: 'v', г: 'g', ғ: 'g', д: 'd',
+    е: 'e', ё: 'e', ж: 'zh', з: 'z', и: 'i', й: 'i',
+    к: 'k', қ: 'q', л: 'l', м: 'm', н: 'n', ң: 'n',
+    о: 'o', ө: 'o', п: 'p', р: 'r', с: 's', т: 't',
+    у: 'u', ұ: 'u', ү: 'u', ф: 'f', х: 'h', һ: 'h',
+    ц: 'ts', ч: 'ch', ш: 'sh', щ: 'sh',
+    ы: 'y', і: 'i', э: 'e', ю: 'yu', я: 'ya',
+    ь: '', ъ: ''
+  };
+
+  return String(value)
+    .split('')
+    .map((char) => {
+      const lower = char.toLowerCase();
+      return map[lower] ?? char;
+    })
+    .join('');
+}
+
 function sanitizeFileName(name) {
+  const original = String(name || 'file');
+  const lastDotIndex = original.lastIndexOf('.');
+
+  const rawBase = lastDotIndex > 0
+    ? original.slice(0, lastDotIndex)
+    : original;
+
+  const rawExt = lastDotIndex > 0
+    ? original.slice(lastDotIndex + 1)
+    : 'file';
+
+  const safeBase = transliterateToAscii(rawBase)
+    .toLowerCase()
+    .replace(/[^a-z0-9._-]+/g, '-')
+    .replace(/-+/g, '-')
+    .replace(/^[.-]+|[.-]+$/g, '')
+    .slice(0, 90) || 'file';
+
+  const safeExt = transliterateToAscii(rawExt)
+    .toLowerCase()
+    .replace(/[^a-z0-9]+/g, '') || 'bin';
+
+  return `${safeBase}.${safeExt}`;
+}
   return name
     .normalize('NFKD')
     .replace(/[\u0300-\u036f]/g, '')
