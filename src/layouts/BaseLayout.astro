@@ -1,0 +1,188 @@
+---
+interface Props {
+  title: string;
+  description?: string;
+  active?: string;
+  admin?: boolean;
+}
+const { title, description = 'Қызылорда жоғары медициналық колледжі — официальный информационный сайт.', active = '', admin = false } = Astro.props;
+const base = import.meta.env.BASE_URL.endsWith('/') ? import.meta.env.BASE_URL : `${import.meta.env.BASE_URL}/`;
+const nav = [
+  ['about', 'nav.about', 'О колледже', 'about.html'],
+  ['admission', 'nav.admission', 'Абитуриентам', 'admission.html'],
+  ['specialties', 'nav.specialties', 'Специальности', 'specialties.html'],
+  ['teachers', 'nav.teachers', 'Преподаватели', 'teachers.html'],
+  ['students', 'nav.students', 'Студентам', 'students.html'],
+  ['documents', 'nav.documents', 'Документы', 'documents.html'],
+  ['schedule', 'nav.schedule', 'Расписание', 'schedule.html'],
+  ['announcements', 'nav.announcements', 'Объявления', 'announcements.html'],
+  ['gallery', 'nav.gallery', 'Галерея', 'gallery.html'],
+  ['news', 'nav.news', 'Новости', 'news.html'],
+  ['search', 'nav.search', 'Поиск', 'search.html'],
+];
+---
+<!doctype html>
+<html lang="ru">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>{title}</title>
+    <meta name="description" content={description} />
+    <meta property="og:title" content={title} />
+    <meta property="og:description" content={description} />
+    <meta property="og:type" content="website" />
+    <meta property="og:image" content={`${base}assets/og-image.svg`} />
+    <meta name="theme-color" content="#14864f" />
+    <link rel="icon" type="image/png" href={`${base}assets/logo.png`} />
+    <link rel="apple-touch-icon" href={`${base}assets/logo.png`} />
+    <link rel="manifest" href={`${base}site.webmanifest`} />
+    <link rel="preconnect" href="https://fonts.googleapis.com" />
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;650;750;800;900&display=swap" rel="stylesheet" />
+    <link rel="stylesheet" href={`${base}styles/global.css`} />
+  </head>
+  <body class={admin ? 'admin-body' : ''}>
+    <a class="skip-link" href="#main" data-i18n="a11y.skip">Перейти к содержанию</a>
+    {!admin && (
+      <header class="site-header">
+        <div class="topbar">
+          <div class="container">
+            <span data-i18n="top.address">Қызылорда қ., Ы. Жахаев көшесі, 18</span>
+            <span data-i18n="top.admission">Приёмная комиссия: +7 7242 23-05-13 · kzmediccollege@mail.kz</span>
+          </div>
+        </div>
+        <div class="container navbar">
+          <a class="logo" href={`${base}index.html`} aria-label="Главная страница">
+            <img src={`${base}assets/logo.png`} alt="Логотип колледжа" />
+            <span data-i18n="site.name">Қызылорда жоғары медициналық колледжі</span>
+          </a>
+          <div class="nav-tools">
+            <button class="a11y-toggle" data-a11y-toggle type="button" aria-expanded="false" aria-label="Версия для слабовидящих" title="Версия для слабовидящих">
+              <span aria-hidden="true">👁</span>
+            </button>
+            <div class="a11y-backdrop" data-a11y-backdrop hidden></div>
+            <div class="a11y-panel" data-a11y-panel role="dialog" aria-label="Версия для слабовидящих" hidden>
+              <div class="a11y-panel__head">
+                <strong>Версия для слабовидящих</strong>
+                <button class="a11y-close" type="button" data-a11y-close aria-label="Закрыть">×</button>
+              </div>
+              <button type="button" data-a11y-action="font-plus">A+</button>
+              <button type="button" data-a11y-action="font-minus">A-</button>
+              <button type="button" data-a11y-action="contrast">Контраст</button>
+              <button type="button" data-a11y-action="gray">Ч/Б</button>
+              <button type="button" data-a11y-action="images">Без изображений</button>
+              <button type="button" data-a11y-action="reset">Сброс</button>
+            </div>
+            <div class="lang-switcher" aria-label="Выбор языка">
+              <button class="lang-btn" type="button" data-set-lang="ru" aria-label="Русский язык">RU</button>
+              <button class="lang-btn" type="button" data-set-lang="kz" aria-label="Қазақ тілі">KZ</button>
+            </div>
+            <button class="menu-btn" data-menu-btn type="button" aria-label="Открыть меню">☰</button>
+          </div>
+          <nav aria-label="Основное меню">
+            <ul class="nav-links" data-nav-links>
+              {nav.map(([key, labelKey, label, href]) => (
+                <li><a class={active === key ? 'active' : ''} href={`${base}${href}`} data-i18n={labelKey}>{label}</a></li>
+              ))}
+              <li><a class={`nav-cta ${active === 'contacts' ? 'active' : ''}`} href={`${base}contacts.html`} data-i18n="nav.contacts">Контакты</a></li>
+            </ul>
+          </nav>
+        </div>
+      </header>
+    )}
+    <main id="main">
+      <slot />
+    </main>
+    {!admin && (
+      <footer class="site-footer">
+        <div class="container">
+          <div class="footer-grid">
+            <div>
+              <h3 data-i18n="site.name">Қызылорда жоғары медициналық колледжі</h3>
+              <p data-i18n="footer.description">Официальный информационный портал колледжа: новости, документы, расписание и материалы для студентов и абитуриентов.</p>
+            </div>
+            <div>
+              <h4 data-i18n="footer.sections">Разделы</h4>
+              <p><a href={`${base}admission.html`} data-i18n="nav.admission">Абитуриентам</a></p>
+              <p><a href={`${base}teachers.html`} data-i18n="nav.teachers">Преподаватели</a></p>
+              <p><a href={`${base}management.html`} data-i18n="nav.management">Руководство</a></p>
+              <p><a href={`${base}documents.html`} data-i18n="nav.documents">Документы</a></p>
+              <p><a href={`${base}announcements.html`} data-i18n="nav.announcements">Объявления</a></p>
+              <p><a href={`${base}search.html`} data-i18n="footer.search">Поиск по сайту</a></p>
+            </div>
+            <div>
+              <h4 data-i18n="nav.contacts">Контакты</h4>
+              <p data-i18n="top.address">Қызылорда қ., Ы. Жахаев көшесі, 18</p>
+              <p>+7 7242 23-05-13</p>
+              <p>kzmediccollege@mail.kz</p>
+            </div>
+          </div>
+          <div class="footer-bottom" data-i18n="footer.rights">© 2026 Қызылорда жоғары медициналық колледжі. Барлық құқықтар қорғалған.</div>
+        </div>
+      </footer>
+    )}
+    <button class="to-top" type="button" data-to-top aria-label="Наверх">↑</button>
+    <script is:inline define:vars={{ base }}>
+      window.SITE_BASE = base;
+      const btn = document.querySelector('[data-menu-btn]');
+      const links = document.querySelector('[data-nav-links]');
+      btn?.addEventListener('click', () => links?.classList.toggle('open'));
+      links?.querySelectorAll('a').forEach((a) => a.addEventListener('click', () => links?.classList.remove('open')));
+      document.addEventListener('keydown', (event) => { if (event.key === 'Escape') links?.classList.remove('open'); });
+      document.addEventListener('click', (event) => {
+        if (!links?.classList.contains('open')) return;
+        const target = event.target;
+        if (target instanceof Node && !links.contains(target) && !btn?.contains(target)) links.classList.remove('open');
+      });
+      const a11yToggle = document.querySelector('[data-a11y-toggle]');
+      const a11yPanel = document.querySelector('[data-a11y-panel]');
+      const a11yBackdrop = document.querySelector('[data-a11y-backdrop]');
+      const a11yClose = document.querySelector('[data-a11y-close]');
+      const getA11y = () => JSON.parse(localStorage.getItem('a11y_settings') || '{"enabled":false,"font":0,"contrast":false,"gray":false,"images":true}');
+      const setA11yOpen = (open) => {
+        if (a11yPanel) a11yPanel.hidden = !open;
+        if (a11yBackdrop) a11yBackdrop.hidden = !open;
+        a11yToggle?.setAttribute('aria-expanded', String(open));
+        document.body.classList.toggle('a11y-panel-open', Boolean(open));
+      };
+      const applyA11y = (settings) => {
+        document.body.classList.toggle('a11y-mode', Boolean(settings.enabled));
+        document.body.classList.toggle('a11y-contrast', Boolean(settings.contrast));
+        document.body.classList.toggle('a11y-gray', Boolean(settings.gray));
+        document.body.classList.toggle('a11y-no-images', settings.images === false);
+        document.documentElement.style.setProperty('--a11y-font-scale', String(1 + Number(settings.font || 0) * 0.08));
+        localStorage.setItem('a11y_settings', JSON.stringify(settings));
+      };
+      applyA11y(getA11y());
+      a11yToggle?.addEventListener('click', () => {
+        setA11yOpen(Boolean(a11yPanel?.hidden));
+        const settings = getA11y();
+        settings.enabled = true;
+        applyA11y(settings);
+      });
+      a11yClose?.addEventListener('click', () => setA11yOpen(false));
+      a11yBackdrop?.addEventListener('click', () => setA11yOpen(false));
+      document.addEventListener('keydown', (event) => { if (event.key === 'Escape') setA11yOpen(false); });
+      a11yPanel?.addEventListener('click', (event) => {
+        const btn = event.target.closest('[data-a11y-action]');
+        if (!btn) return;
+        const action = btn.dataset.a11yAction;
+        const settings = getA11y();
+        settings.enabled = true;
+        if (action === 'font-plus') settings.font = Math.min(4, Number(settings.font || 0) + 1);
+        if (action === 'font-minus') settings.font = Math.max(0, Number(settings.font || 0) - 1);
+        if (action === 'contrast') settings.contrast = !settings.contrast;
+        if (action === 'gray') settings.gray = !settings.gray;
+        if (action === 'images') settings.images = settings.images === false ? true : false;
+        if (action === 'reset') Object.assign(settings, { enabled: false, font: 0, contrast: false, gray: false, images: true });
+        applyA11y(settings);
+      });
+      const toTop = document.querySelector('[data-to-top]');
+      window.addEventListener('scroll', () => {
+        toTop?.classList.toggle('visible', window.scrollY > 620);
+      }, { passive: true });
+      toTop?.addEventListener('click', () => window.scrollTo({ top: 0, behavior: 'smooth' }));
+    </script>
+    {!admin && <script type="module" src={`${base}js/i18n.js`}></script>}
+  </body>
+</html>
