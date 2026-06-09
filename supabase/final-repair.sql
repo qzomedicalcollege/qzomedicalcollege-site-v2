@@ -1,12 +1,41 @@
--- qzomedicalcollege-site-v2 final repair
--- Безопасно выполнять повторно. Чинит metadata, default id, права и RLS.
+-- qzomedicalcollege-site-v2 final repair v2
+-- Безопасно выполнять повторно. Чинит структуру site_posts, id, metadata, права и RLS.
 
 create extension if not exists pgcrypto;
 
 grant usage on schema public to anon, authenticated;
 
-alter table public.site_posts
-  add column if not exists metadata jsonb not null default '{}'::jsonb;
+create table if not exists public.admin_users (
+  user_id uuid primary key references auth.users(id) on delete cascade,
+  created_at timestamptz not null default now()
+);
+
+create table if not exists public.site_posts (
+  id uuid primary key default gen_random_uuid(),
+  section text not null default 'news',
+  title text not null default '',
+  content text not null default '',
+  status text not null default 'published',
+  category text,
+  sort_order integer not null default 0,
+  published_at timestamptz not null default now(),
+  files jsonb not null default '[]'::jsonb,
+  metadata jsonb not null default '{}'::jsonb,
+  created_at timestamptz not null default now(),
+  updated_at timestamptz not null default now()
+);
+
+alter table public.site_posts add column if not exists section text not null default 'news';
+alter table public.site_posts add column if not exists title text not null default '';
+alter table public.site_posts add column if not exists content text not null default '';
+alter table public.site_posts add column if not exists status text not null default 'published';
+alter table public.site_posts add column if not exists category text;
+alter table public.site_posts add column if not exists sort_order integer not null default 0;
+alter table public.site_posts add column if not exists published_at timestamptz not null default now();
+alter table public.site_posts add column if not exists files jsonb not null default '[]'::jsonb;
+alter table public.site_posts add column if not exists metadata jsonb not null default '{}'::jsonb;
+alter table public.site_posts add column if not exists created_at timestamptz not null default now();
+alter table public.site_posts add column if not exists updated_at timestamptz not null default now();
 
 do $$
 declare
@@ -26,31 +55,48 @@ begin
   end if;
 end $$;
 
-alter table public.site_posts
-  drop constraint if exists site_posts_section_check;
+alter table public.site_posts drop constraint if exists site_posts_section_check;
 
 alter table public.site_posts
   add constraint site_posts_section_check
   check (section in (
-    'news', 'announcements', 'about', 'admission', 'students', 'specialties',
-    'documents', 'schedule', 'gallery', 'teachers', 'management', 'faq'
+    'news',
+    'announcements',
+    'about',
+    'admission',
+    'students',
+    'specialties',
+    'documents',
+    'schedule',
+    'gallery',
+    'teachers',
+    'management',
+    'faq'
   ));
+
+alter table public.site_posts drop constraint if exists site_posts_status_check;
+
+alter table public.site_posts
+  add constraint site_posts_status_check
+  check (status in ('published', 'draft'));
 
 create table if not exists public.admin_activity_logs (
   id uuid primary key default gen_random_uuid(),
   user_id uuid references auth.users(id) on delete set null,
   action text not null,
   entity text not null default 'site_posts',
-  entity_id uuid,
+  entity_id text,
   details jsonb not null default '{}'::jsonb,
   created_at timestamptz not null default now()
 );
 
 grant select on public.site_posts to anon, authenticated;
 grant insert, update, delete on public.site_posts to authenticated;
+grant select on public.admin_users to authenticated;
 grant select, insert on public.admin_activity_logs to authenticated;
 
 alter table public.site_posts enable row level security;
+alter table public.admin_users enable row level security;
 alter table public.admin_activity_logs enable row level security;
 
 create or replace function public.is_admin()
@@ -61,7 +107,9 @@ security definer
 set search_path = public
 as $$
   select exists (
-    select 1 from public.admin_users where user_id = auth.uid()
+    select 1
+    from public.admin_users
+    where user_id = auth.uid()
   );
 $$;
 
@@ -98,6 +146,14 @@ for delete
 to authenticated
 using (public.is_admin());
 
+drop policy if exists "Users can read own admin row" on public.admin_users;
+
+create policy "Users can read own admin row"
+on public.admin_users
+for select
+to authenticated
+using (user_id = auth.uid());
+
 drop policy if exists "Admins can read activity logs" on public.admin_activity_logs;
 drop policy if exists "Admins can insert activity logs" on public.admin_activity_logs;
 
@@ -115,4 +171,4 @@ with check (public.is_admin() and user_id = auth.uid());
 
 notify pgrst, 'reload schema';
 
-select 'Final repair completed' as status;
+select 'Final repair v2 completed' as status;
