@@ -1,0 +1,27 @@
+---
+import BaseLayout from '../layouts/BaseLayout.astro';
+import PageHero from '../components/PageHero.astro';
+import PostSection from '../components/PostSection.astro';
+const categories = ['Лицензии', 'Аккредитация', 'Приказы', 'Правила', 'Образовательные программы', 'Расписание', 'Практика', 'Для студентов', 'Для абитуриентов', 'Важно'];
+---
+<BaseLayout title="Документы — Қызылорда жоғары медициналық колледжі" active="documents" description="Официальные документы колледжа: лицензии, аккредитация, правила, приказы, расписание и файлы для скачивания.">
+  <PageHero title="Документы" subtitle="Официальные документы, лицензии, аккредитация, правила, приказы и файлы для скачивания." titleKey="page.documents.title" subtitleKey="page.documents.subtitle" />
+  <section class="section">
+    <div class="container">
+      <div class="section-header">
+        <div>
+          <div class="kicker" data-i18n="docs.filter">Фильтр</div>
+          <h2 class="section-title" data-i18n="docs.categories">Категории документов</h2>
+          <p class="section-subtitle" data-i18n="docs.categories.text">Выберите категорию или смотрите все опубликованные документы.</p>
+        </div>
+      </div>
+      <div class="category-strip" aria-label="Категории документов">
+        <button class="category-pill active" type="button" data-filter-category="" data-i18n="docs.all">Все</button>
+        {categories.map((category) => (
+          <button class="category-pill" type="button" data-filter-category={category}>{category}</button>
+        ))}
+      </div>
+      <PostSection section="documents" empty="Документы пока не добавлены." />
+    </div>
+  </section>
+</BaseLayout>

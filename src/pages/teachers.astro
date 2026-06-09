@@ -1,0 +1,21 @@
+---
+import BaseLayout from '../layouts/BaseLayout.astro';
+import PageHero from '../components/PageHero.astro';
+import PostSection from '../components/PostSection.astro';
+---
+<BaseLayout title="Преподаватели — Қызылорда жоғары медициналық колледжі" active="teachers" description="Педагогический состав и цикловые комиссии колледжа.">
+  <PageHero title="Преподаватели" subtitle="Педагогический состав, цикловые комиссии, квалификация и опыт преподавателей." />
+  <section class="section">
+    <div class="container grid grid-3">
+      <div class="card"><div class="icon">👩‍⚕️</div><h3>Профильные дисциплины</h3><p>Медицинские дисциплины, клиническая практика и профессиональная подготовка.</p></div>
+      <div class="card"><div class="icon">📚</div><h3>Общеобразовательный цикл</h3><p>Языки, цифровая грамотность, естественно-научные и базовые дисциплины.</p></div>
+      <div class="card"><div class="icon">🧭</div><h3>Методическая работа</h3><p>Наставничество, повышение квалификации и современная педагогика.</p></div>
+    </div>
+  </section>
+  <section class="section white">
+    <div class="container">
+      <div class="section-header"><div><div class="kicker">Команда</div><h2 class="section-title">Карточки преподавателей</h2><p class="section-subtitle">В админке для этого раздела доступны отдельные поля: должность, комиссия, стаж, квалификация и контакты.</p></div></div>
+      <PostSection section="teachers" layout="cards" variant="people" empty="Карточки преподавателей пока не добавлены." />
+    </div>
+  </section>
+</BaseLayout>

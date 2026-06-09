@@ -1,0 +1,9 @@
+---
+import BaseLayout from '../layouts/BaseLayout.astro';
+import PageHero from '../components/PageHero.astro';
+import PostSection from '../components/PostSection.astro';
+---
+<BaseLayout title="Расписание — Қызылорда жоғары медициналық колледжі" active="schedule">
+  <PageHero title="Расписание" subtitle="Расписание занятий, экзаменов, практики и другие учебные графики." titleKey="page.schedule.title" subtitleKey="page.schedule.subtitle" />
+  <section class="section"><div class="container"><PostSection section="schedule" empty="Расписание пока не добавлено." /></div></section>
+</BaseLayout>

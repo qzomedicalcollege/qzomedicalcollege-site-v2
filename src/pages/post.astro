@@ -1,0 +1,19 @@
+---
+import BaseLayout from '../layouts/BaseLayout.astro';
+const base = import.meta.env.BASE_URL.endsWith('/') ? import.meta.env.BASE_URL : `${import.meta.env.BASE_URL}/`;
+---
+<BaseLayout title="Материал — Қызылорда жоғары медициналық колледжі" description="Подробная страница новости, документа или объявления колледжа.">
+  <section class="page-hero compact">
+    <div class="container">
+      <p class="kicker" data-i18n="page.post.kicker">Материал сайта</p>
+      <h1 data-i18n="page.post.title">Подробная информация</h1>
+      <p data-i18n="page.post.subtitle">Новость, документ, расписание или объявление колледжа.</p>
+    </div>
+  </section>
+  <section class="section">
+    <div class="container narrow" id="postDetailRoot">
+      <div class="empty-state" data-i18n="common.loading">Загрузка...</div>
+    </div>
+  </section>
+  <script type="module" src={`${base}js/postDetail.js`}></script>
+</BaseLayout>

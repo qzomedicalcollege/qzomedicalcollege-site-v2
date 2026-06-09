@@ -1,0 +1,44 @@
+---
+import BaseLayout from '../layouts/BaseLayout.astro';
+import PageHero from '../components/PageHero.astro';
+import PostSection from '../components/PostSection.astro';
+---
+<BaseLayout title="Абитуриентам — Қызылорда жоғары медициналық колледжі" active="admission" description="Поступление в Кызылординский высший медицинский колледж: этапы, документы, сроки, специальности и контакты приёмной комиссии.">
+  <PageHero title="Абитуриентам" subtitle="Поступление, документы, сроки приёма, специальности и связь с приёмной комиссией." titleKey="page.admission.title" subtitleKey="page.admission.subtitle" />
+  <section class="section">
+    <div class="container split-section">
+      <div>
+        <div class="kicker">Поступление</div>
+        <h2 class="section-title left">Как подать документы</h2>
+        <p class="section-subtitle left">Страница сделана как навигатор для поступающих: этапы, документы, сроки, FAQ и актуальные объявления.</p>
+        <div class="step-grid">
+          <article class="step-card"><b>01</b><h3>Выберите специальность</h3><p>Сравните программы, срок обучения, квалификацию и форму подготовки.</p></article>
+          <article class="step-card"><b>02</b><h3>Подготовьте документы</h3><p>Проверьте перечень документов, медицинские требования и сроки подачи.</p></article>
+          <article class="step-card"><b>03</b><h3>Подайте заявление</h3><p>Следите за объявлениями приёмной комиссии и результатами конкурсного отбора.</p></article>
+          <article class="step-card"><b>04</b><h3>Свяжитесь с комиссией</h3><p>Телефон: +7 7242 23-05-13 · Email: kzmediccollege@mail.kz</p></article>
+        </div>
+      </div>
+      <aside class="info-panel admission-panel">
+        <h3>Быстрые действия</h3>
+        <a class="quick-link" href="specialties.html">Посмотреть специальности</a>
+        <a class="quick-link" href="documents.html">Скачать документы</a>
+        <a class="quick-link" href="faq.html">Частые вопросы</a>
+        <a class="quick-link" href="contacts.html">Контакты приёмной комиссии</a>
+        <div class="mini-alert"><strong>Важно:</strong> актуальные сроки и приказы публикуются ниже через админ-панель.</div>
+      </aside>
+    </div>
+  </section>
+  <section class="section white">
+    <div class="container grid grid-3">
+      <div class="card"><div class="icon">📄</div><h3>Документы</h3><p>Удостоверение личности, документ об образовании, фото, медицинские документы и другие требования.</p></div>
+      <div class="card"><div class="icon">🕒</div><h3>Сроки</h3><p>Сроки подачи документов, конкурсного отбора и зачисления публикуются в объявлениях.</p></div>
+      <div class="card"><div class="icon">☎️</div><h3>Консультация</h3><p>Приёмная комиссия помогает выбрать программу и уточнить требования поступления.</p></div>
+    </div>
+  </section>
+  <section class="section">
+    <div class="container">
+      <div class="section-header"><div><div class="kicker">Приёмная комиссия</div><h2 class="section-title">Объявления для поступающих</h2><p class="section-subtitle">В админке для раздела “Абитуриентам” доступны поля срока, контакта и кнопки действия.</p></div></div>
+      <PostSection section="admission" />
+    </div>
+  </section>
+</BaseLayout>
