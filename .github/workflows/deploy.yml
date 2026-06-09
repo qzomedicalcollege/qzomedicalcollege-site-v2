@@ -23,6 +23,11 @@ jobs:
       - name: Checkout repository
         uses: actions/checkout@v4
 
+      - name: Setup pnpm
+        uses: pnpm/action-setup@v4
+        with:
+          version: 9.15.9
+
       - name: Setup Node.js
         uses: actions/setup-node@v4
         with:
@@ -34,13 +39,13 @@ jobs:
       - name: Show versions
         run: |
           node -v
-          npm -v
+          pnpm -v
 
       - name: Install dependencies
-        run: npm ci --no-audit --no-fund
+        run: pnpm install --no-frozen-lockfile
 
       - name: Build Astro site
-        run: npm run build
+        run: pnpm build
 
       - name: Upload Pages artifact
         uses: actions/upload-pages-artifact@v3
