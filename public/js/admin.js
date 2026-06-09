@@ -284,13 +284,6 @@ function sanitizeFileName(name) {
 
   return `${safeBase}.${safeExt}`;
 }
-  return name
-    .normalize('NFKD')
-    .replace(/[\u0300-\u036f]/g, '')
-    .replace(/[^a-zA-Z0-9а-яА-ЯёЁ._-]+/g, '-')
-    .replace(/-+/g, '-')
-    .replace(/^-|-$/g, '') || 'file';
-}
 
 function isAllowedFile(file) {
   const maxBytes = MAX_FILE_SIZE_MB * 1024 * 1024;
