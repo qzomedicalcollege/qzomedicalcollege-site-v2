@@ -1,4 +1,0 @@
-User-agent: *
-Allow: /
-
-Sitemap: https://qzomedicalcollege.github.io/qzomedicalcollege-site-v2/sitemap.xml
