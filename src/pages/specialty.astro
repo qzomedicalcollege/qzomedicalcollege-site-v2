@@ -1,9 +1,0 @@
----
-import BaseLayout from '../layouts/BaseLayout.astro';
-const base = import.meta.env.BASE_URL.endsWith('/') ? import.meta.env.BASE_URL : `${import.meta.env.BASE_URL}/`;
----
-<BaseLayout title="Специальность — Қызылорда жоғары медициналық колледжі" active="specialties" description="Подробная информация о специальности колледжа.">
-  <section class="page-hero"><div class="container"><p class="kicker">Специальность</p><h1 data-specialty-title>Загрузка...</h1><p data-specialty-subtitle>Подробная информация о программе подготовки.</p></div></section>
-  <section class="section"><div class="container"><article class="detail-card" data-specialty-detail><div class="empty-state">Загрузка специальности...</div></article></div></section>
-  <script type="module" src={`${base}js/specialtyDetail.js`}></script>
-</BaseLayout>
